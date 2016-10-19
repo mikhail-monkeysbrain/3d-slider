@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link href="css/screen.css" rel="stylesheet">
+  <script src="js/lib/modernizr.min.js"></script>
+</head>
+  <body>
+    <div id="page">
+
+        <div id="viewport-shadow">
+          <div id="viewport">
+            <div id="box" style="height:200px !important">
+              <figure class="slide" style="height:200px !important">
+                <img src="img/finding-the-key.png">
+              </figure>
+              <figure class="slide" style="height:200px !important">
+                <img src="img/finding-the-key.png">
+              </figure>
+              <figure class="slide" style="height:200px !important">
+                <img src="img/finding-the-key.png">
+              </figure>
+              <figure class="slide" style="height:200px !important">
+                <img src="img/finding-the-key.png">
+              </figure>
+              <figure class="slide" style="height:200px !important">
+                <img src="img/finding-the-key.png">
+              </figure>
+            </div>
+          </div>
+          <nav class="slider-controls">
+            <ul id="controls">
+              <li><a class="goto-slide current" href="#" data-slideindex="0"></a></li>
+              <li><a class="goto-slide" href="#" data-slideindex="1"></a></li>
+              <li><a class="goto-slide" href="#" data-slideindex="2"></a></li>
+              <li><a class="goto-slide" href="#" data-slideindex="3"></a></li>
+              <li><a class="goto-slide" href="#" data-slideindex="4"></a></li>
+            </ul>
+          </nav>
+    </div>
+    <script src="//code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/lib/jquery-1.7.2.min.js"><\/script>')</script>
+    <script src="js/box-slider-all.jquery.min.js"></script>
+    <script>
+
+      $(function () {
+
+        var $box = $('#box')
+          , $indicators = $('.goto-slide')
+          , $effects = $('.effect')
+          , $timeIndicator = $('#time-indicator')
+          , slideInterval = 5000;
+
+        var switchIndicator = function ($c, $n, currIndex, nextIndex) {
+          $timeIndicator.stop().css('width', 0);
+          $indicators.removeClass('current').eq(nextIndex).addClass('current');
+        };
+
+        var startTimeIndicator = function () {
+          $timeIndicator.animate({width: '2240px'}, slideInterval);
+        };
+
+        // initialize the plugin with the desired settings
+        $box.boxSlider({
+            speed: 1000
+          , autoScroll: true
+          , timeout: slideInterval
+          , next: '#next'
+          , prev: '#prev'
+          , pause: '#pause'
+          , effect: 'scrollHorz3d'
+          , blindCount: 15
+          , onbefore: switchIndicator
+          , onafter: startTimeIndicator
+        });
+
+        startTimeIndicator();
+
+        // pagination isn't built in simply because it's easy to
+        // roll your own with the plugin API methods
+        $('#controls').on('click', '.goto-slide', function (ev) {
+          $box.boxSlider('showSlide', $(this).data('slideindex'));
+          ev.preventDefault();
+        });
+
+      });
+
+    </script>
+  </body>
+</html>
